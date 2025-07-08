@@ -91,6 +91,10 @@ add_css(`
 		filter: invert(1) hue-rotate(180deg);
 	}
 
+	body.dark-theme, .SolvedCategory-module_solvedCategory___8phN {
+		filter: invert(1) hue-rotate(180deg);
+	}
+
 	body.dark-theme .word-cell.highlighted {
 		filter: invert(1) hue-rotate(180deg);
 	}
@@ -114,7 +118,7 @@ add_css(`
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: rgba(var(--connections-helper-opposite-color-mode), 0.5);
+		background-color: rgba(var(--connections-helper-color-mode), 0.5);
 
 		border: none;
 		outline: none;
@@ -224,7 +228,7 @@ add_css(`
 
 		display: block;
 
-		background-color: rgba(var(--connections-helper-color-mode), 1);
+		background-color: rgba(255, 255, 255, 1);
 
 		width: 16px;
 		height: 16px;
