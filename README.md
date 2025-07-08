@@ -28,3 +28,5 @@ On `Desktop` it fades in on hover and on `Mobile` is always present <br/>
 ![Dark Theme](https://github.com/user-attachments/assets/833f99df-9f57-4078-980f-5a1f2a22ff18) <br/>
 #### Light Mode
 ![Light Theme](https://github.com/user-attachments/assets/0b9d4c81-e5e9-4557-81c9-cc81dab18da8)
+
+<div>Icons made from <a href="https://www.onlinewebfonts.com/icon">svg icons</a> is licensed by CC BY 4.0</div>
