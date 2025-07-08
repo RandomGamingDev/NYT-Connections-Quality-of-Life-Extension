@@ -95,6 +95,10 @@ add_css(`
 		filter: invert(1) hue-rotate(180deg);
 	}
 
+	body.dark-theme, .css-awz80j {
+		filter: invert(1) hue-rotate(180deg);
+	}
+
 	body.dark-theme .word-cell.highlighted {
 		filter: invert(1) hue-rotate(180deg);
 	}
