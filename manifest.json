@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "NYT Connections+ [Quality of Life]",
-  "version": "1.0.0",
+  "version": "1.0.1",
 
   "description": "A Quality of Life Extension (Chrome & Firefox) +[Dark mode, Highlighting, Tile dragging, etc.]",
   "icons": {

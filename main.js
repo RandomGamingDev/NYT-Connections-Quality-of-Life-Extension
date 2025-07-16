@@ -60,7 +60,10 @@ if (UserSettings.dark_theme)
 	document.body.classList.add("dark-theme");
 
 const add_css = (css) => document.head.appendChild(document.createElement("style")).innerHTML = css;
+const WORD_CELL_CLASS = "word-cell";
 const HIGHLIGHTER_CLASS = "highlighter";
+const HIGHLIGHTED_CLASS = "highlighted";
+const EXTENSION_CLASSES = [WORD_CELL_CLASS, HIGHLIGHTER_CLASS, HIGHLIGHTED_CLASS];
 add_css(`
 	:root {
 		--connections-helper-color-mode: 0, 0, 0;
@@ -91,15 +94,15 @@ add_css(`
 		filter: invert(1) hue-rotate(180deg);
 	}
 
-	body.dark-theme, .SolvedCategory-module_solvedCategory___8phN {
+	body.dark-theme .SolvedCategory-module_solvedCategory___8phN {
 		filter: invert(1) hue-rotate(180deg);
 	}
 
-	body.dark-theme, .css-awz80j {
+	body.dark-theme .css-awz80j {
 		filter: invert(1) hue-rotate(180deg);
 	}
 
-	body.dark-theme .word-cell.highlighted {
+	body.dark-theme .word-cell.${HIGHLIGHTED_CLASS} {
 		filter: invert(1) hue-rotate(180deg);
 	}
 
@@ -438,9 +441,9 @@ const gen_dif_highlighter = (cell, dif) => {
 
 			const is_color = highlighter.parentElement.style.backgroundColor == color;
 			if (is_color)
-				cell.classList.remove("highlighted");
+				cell.classList.remove(HIGHLIGHTED_CLASS);
 			else
-				cell.classList.add("highlighted");
+				cell.classList.add(HIGHLIGHTED_CLASS);
 			const cell_bg_color = get_cell_bg_color(cell);
 			highlighter.style.backgroundColor = is_color ? color : cell_bg_color;
 			highlighter.parentElement.style.backgroundColor = is_color ? cell_bg_color : color;
@@ -533,26 +536,26 @@ document.addEventListener("pointerup", (e) => {
 
 let is_click_check = -1;
 const observer = new MutationObserver((mutations) => {
-	const cell0 = document.querySelector("[for=\"inner-card-0\"]");
-	if (cell0 == null)
+	const cellN = document.querySelector("[for^=\"inner-card-\"]");
+	if (cellN == null)
 		return;
 
-	EMPTY_CELL = cell0.cloneNode();
+	EMPTY_CELL = cellN.cloneNode();
 	clear_children(EMPTY_CELL);
 	EMPTY_CELL.style.opacity = "0";
 
-	CELL_CONTAINER = cell0.parentElement;
+	CELL_CONTAINER = cellN.parentElement;
 	{
 		if (!UserSettings.highlighter)
 			CELL_CONTAINER.classList.add("highlighter-disabled");
 	}
 	{
-		BG_COLOR = window.getComputedStyle(cell0).getPropertyValue("background-color");
+		BG_COLOR = window.getComputedStyle(cellN).getPropertyValue("background-color");
 		BG_UNSEL_COLOR = window.getComputedStyle(document.querySelector("[data-testid=\"deselect-btn\"]")).getPropertyValue("color");
 	}
 
 	for (const cell of CELL_CONTAINER.children) {
-		cell.classList.add("word-cell");
+		cell.classList.add(WORD_CELL_CLASS);
 
 		cell.style.touchAction = "none";
 		add_highlighters(cell);
@@ -591,6 +594,29 @@ const observer = new MutationObserver((mutations) => {
 			trigger(cell, "pointerdown");
 			trigger(cell, "pointerup");
 		})
+	}
+
+	{
+		const class_preserver = new MutationObserver((mutations) => {
+			for (const mutation of mutations) {
+				if (mutation.type != "attributes" || mutation.attributeName != "class")
+					continue;
+
+				const new_class_list_set = new Set(mutation.target.classList);
+				const old_class_list_set = new Set(mutation.oldValue.split(' '));
+
+				if (!Array.from(new_class_list_set.symmetricDifference(old_class_list_set)).some(c => !EXTENSION_CLASSES.includes(c)))
+					continue;
+
+				mutation.target.classList.add(...mutation.oldValue.split(' ').filter(c => EXTENSION_CLASSES.includes(c)));
+			}
+		});
+		class_preserver.observe(CELL_CONTAINER, {
+			subtree: true,
+			attributes: true,
+			attributeFilter: ["class"],
+			attributeOldValue: true
+		});
 	}
 
 	const toolbar = document.querySelector("[data-testid=\"toolbar\"]");
