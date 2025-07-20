@@ -397,14 +397,19 @@ let CELL_CONTAINER;
 let EMPTY_CELL;
 
 const get_hovered_cell = (e) => {
-	const container_dims_cell = Math.sqrt(CELL_CONTAINER.childElementCount);
+	const container_og_num_cells = 16;
+	const container_dims_cell = 4;
 	const bound = CELL_CONTAINER.getBoundingClientRect();
 	const x = e.clientX - bound.x;
 	const y = e.clientY - bound.y;
 	const cell_width = bound.width / container_dims_cell;
 	const cell_height = bound.height / container_dims_cell;
+	const cell_x = Math.floor(x / cell_width);
+	if (cell_x < 0 || cell_x >= 4)
+		return null;
+	const cell_y = Math.floor(y / cell_height);
 
-	const i = Math.floor(x / cell_width) + container_dims_cell * Math.floor(y / cell_height);
+	const i = CELL_CONTAINER.childElementCount - (container_og_num_cells - (cell_x + container_dims_cell * cell_y));
 	return i < 0 || i >= CELL_CONTAINER.childElementCount ? null : CELL_CONTAINER.children[i];
 }
 
@@ -483,8 +488,9 @@ function cell_drag(e) {
 
 	if (selected_cell.style.position == "fixed") {
 		document.body.appendChild(selected_cell);
-		selected_cell.style.top = `${e.clientY - selected_cell_bound.height / 2}px`;
-		selected_cell.style.left = `${e.clientX - selected_cell_bound.width / 2}px`;
+		const body_bound = document.body.getBoundingClientRect();
+		selected_cell.style.top = `${e.clientY - body_bound.y - selected_cell_bound.height / 2}px`;
+		selected_cell.style.left = `${e.clientX - body_bound.x - selected_cell_bound.width / 2}px`;
 	} else {
 		CELL_CONTAINER.insertBefore(EMPTY_CELL, selected_cell);
 		selected_cell.style.position = "fixed";

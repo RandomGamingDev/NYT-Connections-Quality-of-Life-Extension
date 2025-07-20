@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "NYT Connections+ [Quality of Life]",
-  "version": "1.0.1",
+  "version": "1.0.2",
 
   "description": "A Quality of Life Extension (Chrome & Firefox) +[Dark mode, Highlighting, Tile dragging, etc.]",
   "icons": {
@@ -19,10 +19,16 @@
       "js": ["main.js"]
     }
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+  "default_title": "Click to open Connections"
+  },
   "web_accessible_resources": [
     {
       "resources": ["icons/*"],
-      "matches": ["<all_urls>"]
+      "matches": []
     }
   ],
   "browser_specific_settings": {
