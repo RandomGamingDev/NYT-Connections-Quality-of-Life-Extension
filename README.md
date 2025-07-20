@@ -1,5 +1,5 @@
 # NYT Connections+ [Quality of Life] Extension
-### Available for Chrome & Firefox on Mobile & PC under the [MIT License](https://github.com/RandomGamingDev/NYT-Connections-Quality-of-Life-Extension/blob/main/LICENSE)
+### Available for [Chrome](https://chromewebstore.google.com/detail/nyt-connections+-quality/neccpmnjdlihclnehdgpllmabhmkicbc) & [Firefox](https://addons.mozilla.org/en-US/firefox/addon/nyt-connections-qol/) on Mobile & PC under the [MIT License](https://github.com/RandomGamingDev/NYT-Connections-Quality-of-Life-Extension/blob/main/LICENSE)
 ![Thumbnail](icons/icon-512.png) <br/>
 You can find our <img width="100" height="auto" alt="image" src="https://github.com/user-attachments/assets/0f301a7e-b239-4469-8e43-8cf1bea582cb"  /> here: https://discord.gg/PSVd4nRm3w <br/>
 (Feel free to add whatever you'd like and I welcome new feature requests since I think that Connections is a pretty underrated game :D)
