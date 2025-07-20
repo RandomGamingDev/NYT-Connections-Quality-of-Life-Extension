@@ -20,7 +20,8 @@
     }
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
   },
   "action": {
   "default_title": "Click to open Connections"
@@ -28,7 +29,7 @@
   "web_accessible_resources": [
     {
       "resources": ["icons/*"],
-      "matches": []
+      "matches": ["<all_urls>"]
     }
   ],
   "browser_specific_settings": {
